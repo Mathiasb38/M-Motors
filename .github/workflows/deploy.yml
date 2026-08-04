@@ -16,8 +16,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install -r backend/requirements.txt
-      - run: pytest backend/tests
+      - run: pip install -r requirements.txt
+        working-directory: backend
+      - run: python -m pytest
+        working-directory: backend
       - uses: actions/setup-node@v4
         with:
           node-version: 22
