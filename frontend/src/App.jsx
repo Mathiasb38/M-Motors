@@ -1,10 +1,17 @@
+import Header from './components/Header/Header.jsx'
+
+
 export default App
 
 
 function App() {
   return (
-    <main className="app">
-      <h1>M-motors</h1>
-    </main>
+    <>
+      <Header />
+      <main>
+        
+      </main>
+
+    </>
   )
 }
