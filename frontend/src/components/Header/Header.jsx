@@ -4,7 +4,10 @@ import logo from '../../assets/logo-m-motors.png'
 import './Header.css'
 
 
-export default function Header() {
+export default Header
+
+
+function Header() {
   return (
     <header className="header">
       <a className="header-logo" href="/">

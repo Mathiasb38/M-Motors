@@ -2,7 +2,10 @@ import logo from '../../assets/logo-m-motors.png'
 import './Footer.css'
 
 
-export default function Footer() {
+export default Footer
+
+
+function Footer() {
   return (
     <footer className="footer">
       <div className="footer-content">
