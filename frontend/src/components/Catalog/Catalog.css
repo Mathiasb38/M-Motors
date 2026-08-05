@@ -1,0 +1,141 @@
+.catalog {
+  background: var(--color-content-background);
+  padding: 10px;
+}
+
+.catalog-list {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, 340px);
+  justify-content: center;
+}
+
+.catalog-card {
+  background: var(--color-light);
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px #595959;
+  padding: 10px;
+}
+
+.catalog-card-title h2,
+.catalog-card-title p {
+  margin: 0;
+}
+
+.catalog-card-title h2 {
+  color: var(--color-text-primary);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.catalog-card-title p {
+  color: var(--color-secondary-light);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.catalog-card-image {
+  align-items: center;
+  background: var(--color-content-background);
+  border-radius: 10px;
+  color: var(--color-icon);
+  display: flex;
+  height: auto;
+  aspect-ratio: 16/9;
+  justify-content: center;
+  margin: 20px 16px;
+}
+
+.catalog-card-image svg {
+  width: 64px;
+  height: auto;
+
+}
+
+.catalog-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.catalog-status {
+  align-items: center;
+  color: var(--color-secondary-light);
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 6px;
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.catalog-status::before {
+  background: var(--color-available);
+  border-radius: 50%;
+  content: "";
+  height: 9px;
+  width: 9px;
+}
+
+.catalog-status-unavailable::before {
+  background: var(--color-warning);
+}
+
+.catalog-card-footer strong {
+  color: var(--color-text-primary);
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.catalog-button-add {
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 4px;
+  color: var(--color-light);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 0 20px;
+}
+
+.catalog-button-more {
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 4px;
+  color: var(--color-light);
+  display: block;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 64px auto 0;
+  min-height: 44px;
+  min-width: 156px;
+}
+
+@media (max-width: 768px) {
+  .catalog {
+    padding: 13px 10px 50px;
+  }
+
+  .catalog-list {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-card {
+    min-height: 262px;
+    padding: 20px 10px;
+  }
+
+  .catalog-card-image {
+    margin: 0 auto 16px;
+    width: 224px;
+  }
+
+  .catalog-button-add {
+    min-width: 116px;
+  }
+
+
+}
