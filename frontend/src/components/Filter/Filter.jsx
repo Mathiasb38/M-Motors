@@ -13,14 +13,14 @@ function Filter() {
     <section className="filter" aria-label="Filtres du catalogue">
       <div className="filter-tabs" aria-label="Type d'offre">
         <button
-          className={`filter-tab filter-achat-${selectedType === 'achat' ? 'active' : 'inactive'}`}
+          className={`filter-button filter-button-achat-${selectedType === 'achat' ? 'active' : 'inactive'}`}
           type="button"
           onClick={() => setSelectedType('achat')}
         >
           Achat
         </button>
         <button
-          className={`filter-tab filter-location-${selectedType === 'location' ? 'active' : 'inactive'}`}
+          className={`filter-button filter-button-location-${selectedType === 'location' ? 'active' : 'inactive'}`}
           type="button"
           onClick={() => setSelectedType('location')}
         >

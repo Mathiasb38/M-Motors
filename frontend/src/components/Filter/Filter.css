@@ -9,7 +9,7 @@
   margin-bottom: 42px;
 }
 
-.filter-tab {
+.filter-button {
   border-radius: 10px;
   color: var(--color-text-primary);
   flex: 1;
@@ -21,24 +21,24 @@
   padding: 0;
 }
 
-.filter-achat-active {
+.filter-button-achat-active {
   background: var(--color-icon);
   border: 3px solid var(--color-icon);
   color: var(--color-light);
 }
 
-.filter-achat-inactive {
+.filter-button-achat-inactive {
   background: transparent;
   border: 3px solid var(--color-icon);
 }
 
-.filter-location-active {
+.filter-button-location-active {
   background: var(--color-icon);
   border: 3px solid var(--color-icon);
   color: var(--color-light);
 }
 
-.filter-location-inactive {
+.filter-button-location-inactive {
   background: transparent;
   border: 3px solid var(--color-icon);
 }
@@ -82,12 +82,11 @@
   }
 
   .filter-tabs {
-    gap: 10px;
+    flex-direction: column;
     margin: 0 6px 10px;
   }
 
-  .filter-tab {
-    font-size: 32px;
+  .filter-button {
     min-height: 83px;
   }
 
