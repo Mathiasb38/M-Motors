@@ -1,6 +1,5 @@
 .footer {
   background: var(--color-background);
-  box-sizing: border-box;
   color: var(--color-text-primary);
   min-height: 500px;
   padding: 30px 60px 0;
@@ -33,7 +32,6 @@
   padding-top: 50px;
 }
 
-
 .footer-column h2 {
   font-size: 20px;
   font-weight: 600;
@@ -65,4 +63,44 @@
   font-weight: 600;
   line-height: 1.5;
   margin: 24px 0 0;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    min-height: 420px;
+    padding: 48px 24px 0;
+  }
+
+  .footer-content {
+    display: block;
+    min-height: 282px;
+  }
+
+  .footer-logo {
+    height: 53px;
+    width: 206px;
+  }
+
+  .footer-nav {
+    gap: 56px;
+    padding-top: 48px;
+  }
+
+  .footer-column {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .footer-column h2 {
+    font-size: 18px;
+    margin-bottom: 24px;
+  }
+
+  .footer-column ul {
+    gap: 0;
+  }
+
+  .footer-copyright {
+    font-size: 14px;
+  }
 }

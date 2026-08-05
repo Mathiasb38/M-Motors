@@ -10,6 +10,13 @@
   --color-notification: #ff4423;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-primary);
+  margin: 0;
 }
