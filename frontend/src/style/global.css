@@ -1,7 +1,15 @@
 :root {
+  --font-primary: "Plus Jakarta Sans", sans-serif;
+
   --color-background: #eeeeee;
   --color-border: #c3d4e9;
   --color-icon: #596780;
+  --color-text-primary: #1a202c;
+  --color-text-muted: rgba(19, 19, 19, 0.6);
   --color-white: #ffffff;
   --color-notification: #ff4423;
+}
+
+body {
+  font-family: var(--font-primary);
 }
