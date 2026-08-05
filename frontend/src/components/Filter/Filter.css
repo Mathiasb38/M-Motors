@@ -1,0 +1,106 @@
+.filter {
+  background: var(--color-content-background);
+  padding: 32px 64px 19px;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 42px;
+}
+
+.filter-tab {
+  border-radius: 10px;
+  color: var(--color-text-primary);
+  flex: 1;
+  font: inherit;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.5;
+  min-height: 150px;
+  padding: 0;
+}
+
+.filter-achat-active {
+  background: var(--color-icon);
+  border: 3px solid var(--color-icon);
+  color: var(--color-light);
+}
+
+.filter-achat-inactive {
+  background: transparent;
+  border: 3px solid var(--color-icon);
+}
+
+.filter-location-active {
+  background: var(--color-icon);
+  border: 3px solid var(--color-icon);
+  color: var(--color-light);
+}
+
+.filter-location-inactive {
+  background: transparent;
+  border: 3px solid var(--color-icon);
+}
+
+.filter-form {
+  background: var(--color-light);
+  border-radius: 10px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 24px 48px;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-field span {
+  color: var(--color-text-primary);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.filter-field select {
+  background: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-secondary-light);
+  font: inherit;
+  font-size: 14px;
+  min-height: 42px;
+  padding: 0 12px;
+}
+
+@media (max-width: 768px) {
+  .filter {
+    padding: 10px 0 0;
+  }
+
+  .filter-tabs {
+    gap: 10px;
+    margin: 0 6px 10px;
+  }
+
+  .filter-tab {
+    font-size: 32px;
+    min-height: 83px;
+  }
+
+  .filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin: 0 6px;
+    padding: 26px 42px;
+  }
+
+  .filter-field {
+    gap: 1px;
+    padding: 10px 0;
+  }
+}

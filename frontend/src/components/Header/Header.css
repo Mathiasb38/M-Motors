@@ -24,7 +24,7 @@
 
 .header-action {
   align-items: center;
-  background: var(--color-white);
+  background: var(--color-light);
   border: 1px solid var(--color-border);
   border-radius: 50%;
   color: var(--color-icon);
