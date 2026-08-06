@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import check_database_connection, close_database_connection
+from app.routers.vehicles import router as vehicles_router
 
 
 @asynccontextmanager
@@ -33,3 +34,5 @@ app.add_middleware(
 @app.get("/health")
 def health_check() -> dict[str, str]:
     return {"status": "ok"}
+
+app.include_router(vehicles_router)
