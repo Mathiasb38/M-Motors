@@ -6,3 +6,4 @@ pytest-cov
 python-dotenv
 sqlalchemy
 uvicorn[standard]
+alembic
