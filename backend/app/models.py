@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String
+from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, UniqueConstraint
 from sqlalchemy.orm import mapped_column
 
 from app.database import Base
@@ -23,6 +23,9 @@ class Brand(Base):
 
 class VehicleModel(Base):
     __tablename__ = "models"
+    __table_args__ = (
+        UniqueConstraint("brand_id", "name", name="uq_models_brand_id_name"),
+    )
 
     id = mapped_column(Integer, primary_key=True, index=True)
     name = mapped_column(String(100), nullable=False)
