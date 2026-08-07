@@ -21,12 +21,20 @@ const PRICE_RANGES = {
 
 function Filter() {
   const [selectedType, setSelectedType] = useState('achat')
+  const [selectedBrandId, setSelectedBrandId] = useState('')
   const [options, setOptions] = useState(EMPTY_OPTIONS)
   const [prices, setPrices] = useState({
-    achat: { min: 0, max: 150000 },
-    location: { min: 0, max: 500 },
+    achat: {
+      min: PRICE_RANGES.achat.min,
+      max: PRICE_RANGES.achat.max,
+    },
+    location: {
+      min: PRICE_RANGES.location.min,
+      max: PRICE_RANGES.location.max,
+    },
   })
-  const models = options.brands.flatMap((brand) => brand.models)
+  const selectedBrand = options.brands.find((brand) => brand.id === Number(selectedBrandId))
+  const models = selectedBrand ? selectedBrand.models : options.brands.flatMap((brand) => brand.models)
 
   function updatePrice(name, value) {
     setPrices((currentPricesByType) => ({
@@ -65,8 +73,12 @@ function Filter() {
       <form className="filter-form">
         <label className="filter-field">
           <span>Marque</span>
-          <select name="brand">
-            <option>-</option>
+          <select
+            name="brand"
+            value={selectedBrandId}
+            onChange={(event) => setSelectedBrandId(event.target.value)}
+          >
+            <option value="">-</option>
             {options.brands.map((brand) => (
               <option key={brand.id} value={brand.id}>{brand.name}</option>
             ))}
