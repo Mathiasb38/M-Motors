@@ -69,11 +69,85 @@
   background: var(--color-light);
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  color: var(--color-secondary-light);
   font: inherit;
   font-size: 14px;
   min-height: 42px;
   padding: 0 12px;
+}
+
+.filter-range {
+  position: relative;
+  padding: 20px 0px;
+}
+
+.filter-range-track,
+.filter-range-selection {
+  border-radius: 999px;
+  height: 6px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 18px;
+}
+
+.filter-range-track {
+  background: var(--color-border);
+}
+
+.filter-range-selection {
+  background: var(--color-primary);
+}
+
+.filter-range input {
+  background: transparent;
+  pointer-events: none;
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.filter-range input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.filter-range input::-webkit-slider-thumb,
+.filter-range input::-moz-range-thumb {
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 50%;
+  height: 18px;
+  pointer-events: auto;
+  width: 18px;
+}
+
+.filter-range input::-webkit-slider-runnable-track,
+.filter-range input::-moz-range-track {
+  background: transparent;
+  border-radius: 999px;
+  height: 6px;
+}
+
+.filter-price-values {
+  display: flex;
+  font-size: 14px;
+  font-weight: 600;
+  justify-content: space-between;
+}
+
+.filter-checkbox {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.filter-checkbox input {
+  accent-color: var(--color-primary);
+  height: 18px;
+  width: 18px;
 }
 
 @media (max-width: 768px) {
