@@ -18,7 +18,7 @@ jobs:
           python-version: '3.13'
       - run: pip install -r requirements.txt
         working-directory: backend
-      - run: python -m pytest
+      - run: python -m pytest --cov=app --cov-fail-under=80
         working-directory: backend
       - uses: actions/setup-node@v4
         with:
@@ -35,6 +35,16 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r requirements.txt
+        working-directory: backend
+      - run: alembic upgrade head
+        working-directory: backend
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: Backend deploy
         run: curl --fail --request POST "${{ secrets.RENDER_BACKEND_DEPLOY }}"
       - name: Frontend deploy

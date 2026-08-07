@@ -1,20 +1,23 @@
 :root {
+
   --font-primary: "Plus Jakarta Sans", sans-serif;
 
   --color-background: #eeeeee;
   --color-content-background: #f7f7f7;
-  --color-border: #c3d4e9;
-  --color-icon: #596780;
+
+  --color-light: #ffffff;
   --color-secondary-light: #90a3bf;
   --color-primary: #4264c7;
   --color-available: #1eda7f;
   --color-warning: #dacd1e;
+  --color-notification: #ff4423;
 
   --color-text-primary: #1a202c;
   --color-text-muted: #13131399;
 
-  --color-light: #ffffff;
-  --color-notification: #ff4423;
+  --color-border: #c3d4e9;
+  --color-icon: #596780;
+
 }
 
 *,
