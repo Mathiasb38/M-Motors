@@ -10,3 +10,16 @@ export async function getAvailableVehicles() {
 
   return response.json()
 }
+
+
+export async function getVehicleOptions() {
+  const response = await fetch(`${API_URL}/vehicles/options`)
+
+  if (!response.ok) {
+    return {
+      brands: [],
+    }
+  }
+
+  return response.json()
+}
