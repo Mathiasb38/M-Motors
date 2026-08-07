@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas.vehicle import VehicleOptionsOut, VehicleOut
+from app.schemas.vehicle import AvailableVehicleFilters, VehicleOptionsOut, VehicleOut
 from app.services.vehicles_service import get_vehicle_options, list_available_vehicles
 
 
@@ -10,8 +10,14 @@ router = APIRouter(prefix="/vehicles")
 
 
 @router.get("/available", response_model=list[VehicleOut])
-def get_available_vehicles(db: Session = Depends(get_db)) -> list[VehicleOut]:
-    return list_available_vehicles(db)
+def get_available_vehicles(
+    filters: AvailableVehicleFilters = Depends(),
+    db: Session = Depends(get_db),
+) -> list[VehicleOut]:
+    return list_available_vehicles(
+        db=db,
+        filters=filters,
+    )
 
 
 @router.get("/options", response_model=VehicleOptionsOut)
