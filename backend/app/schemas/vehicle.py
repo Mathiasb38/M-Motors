@@ -11,3 +11,18 @@ class VehicleOut(BaseModel):
     price: Decimal
     offer_type: str
     availability: datetime
+
+
+class VehicleModelOptionsOut(BaseModel):
+    id: int
+    name: str
+
+
+class VehicleBrandOptionsOut(BaseModel):
+    id: int
+    name: str
+    models: list[VehicleModelOptionsOut]
+
+
+class VehicleOptionsOut(BaseModel):
+    brands: list[VehicleBrandOptionsOut]
