@@ -20,6 +20,9 @@ jobs:
         working-directory: backend
       - run: python -m pytest --cov=app --cov-fail-under=80
         working-directory: backend
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL_TEST: ${{ secrets.DATABASE_URL_TEST }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
