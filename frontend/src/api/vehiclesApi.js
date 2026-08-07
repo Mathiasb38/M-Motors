@@ -7,6 +7,7 @@ export async function getAvailableVehicles(filters = {}) {
   if (filters.offer_type) params.set('offer_type', filters.offer_type)
   if (filters.brand_id) params.set('brand_id', filters.brand_id)
   if (filters.model_id) params.set('model_id', filters.model_id)
+  if (filters.engine_id) params.set('engine_id', filters.engine_id)
   if (filters.available_now) params.set('available_now', filters.available_now)
 
   const query = params.toString()
@@ -26,6 +27,7 @@ export async function getVehicleOptions() {
   if (!response.ok) {
     return {
       brands: [],
+      engines: [],
     }
   }
 

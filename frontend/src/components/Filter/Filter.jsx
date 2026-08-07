@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { getVehicleOptions } from '../../api/vehiclesApi.js'
 import PriceRange from './PriceRange.jsx'
+import { DEFAULT_FILTERS, EMPTY_OPTIONS, PRICE_RANGES } from './filterConfig.js'
 
 import './Filter.css'
 
@@ -9,37 +10,48 @@ import './Filter.css'
 export default Filter
 
 
-const EMPTY_OPTIONS = {
-  brands: [],
-}
-
-const PRICE_RANGES = {
-  achat: { min: 0, max: 150000, step: 1000 },
-  location: { min: 0, max: 1000, step: 10 },
-}
-
-
-function Filter({ onChange }) {
-  const [selectedType, setSelectedType] = useState('achat')
-  const [selectedBrandId, setSelectedBrandId] = useState('')
-  const [selectedModelId, setSelectedModelId] = useState('')
-  const [availableNow, setAvailableNow] = useState(false)
+function Filter({ filters, onChange }) {
   const [options, setOptions] = useState(EMPTY_OPTIONS)
-  const [prices, setPrices] = useState({
-    achat: { min: PRICE_RANGES.achat.min, max: PRICE_RANGES.achat.max },
-    location: { min: PRICE_RANGES.location.min, max: PRICE_RANGES.location.max },
-  })
-  const selectedBrand = options.brands.find((brand) => brand.id === Number(selectedBrandId))
-  const models = selectedBrand ? selectedBrand.models : options.brands.flatMap((brand) => brand.models)
+  const selectedType = filters.offer_type === 'rent' ? 'location' : 'achat'
+  const models = getVisibleModels(options.brands, filters.brand_id)
+  const engines = getVisibleEngines(models, filters.model_id)
+  const currentPriceRange = PRICE_RANGES[filters.offer_type]
+  const currentPrices = {
+    min: filters.min_price ?? currentPriceRange.min,
+    max: filters.max_price ?? currentPriceRange.max,
+  }
+
+  function updateFilters(updatedFilters) {
+    onChange({
+      ...filters,
+      ...updatedFilters,
+    })
+  }
+
+  function updateType(offerType) {
+    const prices = filters.price_ranges?.[offerType] ?? PRICE_RANGES[offerType]
+
+    updateFilters({
+      offer_type: offerType,
+      min_price: prices.min,
+      max_price: prices.max,
+    })
+  }
 
   function updatePrice(name, value) {
-    setPrices((currentPricesByType) => ({
-      ...currentPricesByType,
-      [selectedType]: {
-        ...currentPricesByType[selectedType],
-        [name]: value,
+    const nextPrices = {
+      ...currentPrices,
+      [name]: value,
+    }
+
+    updateFilters({
+      min_price: nextPrices.min,
+      max_price: nextPrices.max,
+      price_ranges: {
+        ...filters.price_ranges,
+        [filters.offer_type]: nextPrices,
       },
-    }))
+    })
   }
 
   useEffect(() => {
@@ -48,47 +60,33 @@ function Filter({ onChange }) {
       .catch(() => setOptions(EMPTY_OPTIONS))
   }, [])
 
-  useEffect(() => {
-    const currentPrices = prices[selectedType]
-
-    onChange({
-      offer_type: selectedType === 'achat' ? 'sale' : 'rent',
-      brand_id: selectedBrandId,
-      model_id: selectedModelId,
-      min_price: currentPrices.min,
-      max_price: currentPrices.max,
-      available_now: availableNow,
-    })
-  }, [selectedType, selectedBrandId, selectedModelId, availableNow, prices, onChange])
-
   return (
     <section className="filter" aria-label="Filtres du catalogue">
       <div className="filter-tabs" aria-label="Type d'offre">
+        {/* Sale */}
         <button
           className={`filter-button filter-button-achat-${selectedType === 'achat' ? 'active' : 'inactive'}`}
-          type="button"
-          onClick={() => setSelectedType('achat')}
-        >
-          Achat
-        </button>
+          type="button" onClick={() => updateType('sale')} > Achat </button>
+
+        {/* Rent */}
         <button
           className={`filter-button filter-button-location-${selectedType === 'location' ? 'active' : 'inactive'}`}
-          type="button"
-          onClick={() => setSelectedType('location')}
-        >
-          Location
-        </button>
+          type="button" onClick={() => updateType('rent')} > Location </button>
       </div>
+
       <form className="filter-form">
+
+        {/* Brand */}
         <label className="filter-field">
           <span>Marque</span>
           <select
             name="brand"
-            value={selectedBrandId}
-            onChange={(event) => {
-              setSelectedBrandId(event.target.value)
-              setSelectedModelId('')
-            }}
+            value={filters.brand_id ?? ''}
+            onChange={(event) => updateFilters({
+              brand_id: event.target.value,
+              model_id: '',
+              engine_id: '',
+            })}
           >
             <option value="">-</option>
             {options.brands.map((brand) => (
@@ -96,12 +94,17 @@ function Filter({ onChange }) {
             ))}
           </select>
         </label>
+
+        {/* Model */}
         <label className="filter-field">
           <span>Modèle</span>
           <select
             name="model"
-            value={selectedModelId}
-            onChange={(event) => setSelectedModelId(event.target.value)}
+            value={filters.model_id ?? ''}
+            onChange={(event) => updateFilters({
+              model_id: event.target.value,
+              engine_id: '',
+            })}
           >
             <option value="">-</option>
             {models.map((model) => (
@@ -109,21 +112,78 @@ function Filter({ onChange }) {
             ))}
           </select>
         </label>
+
+        {/* Engine */}
+        <label className="filter-field">
+          <span>Motorisation</span>
+          <select
+            name="engine"
+            value={filters.engine_id ?? ''}
+            onChange={(event) => updateFilters({ engine_id: event.target.value })}
+          >
+            <option value="">-</option>
+            {engines.map((engine) => (
+              <option key={engine.id} value={engine.id}>{engine.name}</option>
+            ))}
+          </select>
+        </label>
+
+        {/* Mileage */}
+        <label className="filter-field">
+          <span>Kilométrage max</span>
+          <input
+            name="maxMileage"
+            type="number"
+            min="0"
+            step="1000"
+            value={filters.max_mileage ?? DEFAULT_FILTERS.max_mileage}
+            onChange={(event) => updateFilters({ max_mileage: Number(event.target.value) })}
+          />
+        </label>
+
+        {/* Price */}
         <PriceRange
-          prices={prices[selectedType]}
-          range={PRICE_RANGES[selectedType]}
+          prices={currentPrices}
+          range={currentPriceRange}
           onChange={updatePrice}
         />
+
+        {/* Availability */}
         <label className="filter-checkbox">
           <input
-            checked={availableNow}
+            checked={filters.available_now ?? false}
             name="availableNow"
             type="checkbox"
-            onChange={(event) => setAvailableNow(event.target.checked)}
+            onChange={(event) => updateFilters({ available_now: event.target.checked })}
           />
           <span>Disponible immédiatement</span>
         </label>
+        
       </form>
     </section>
   )
+}
+
+
+function getVisibleModels(brands, brandId) {
+  const selectedBrand = brands.find((brand) => brand.id === Number(brandId))
+
+  return selectedBrand ? selectedBrand.models : brands.flatMap((brand) => brand.models)
+}
+
+
+function getVisibleEngines(models, modelId) {
+  const selectedModel = models.find((model) => model.id === Number(modelId))
+  const engines = selectedModel
+    ? selectedModel.engines
+    : models.flatMap((model) => model.engines)
+
+  return getUniqueEngines(engines)
+}
+
+
+function getUniqueEngines(engines) {
+  return engines.filter((engine, index) => (
+    engines.findIndex((currentEngine) => currentEngine.id === engine.id) === index
+  ))
 }

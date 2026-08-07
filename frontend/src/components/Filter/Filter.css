@@ -46,9 +46,9 @@
 .filter-form {
   background: var(--color-light);
   border-radius: 10px;
-  display: grid;
+  display: flex;
   gap: 24px;
-  grid-template-columns: repeat(4, 1fr);
+  flex-wrap: wrap;
   padding: 24px 48px;
 }
 
@@ -56,6 +56,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 180px;
 }
 
 .filter-field span {
@@ -65,7 +66,8 @@
   line-height: 1.5;
 }
 
-.filter-field select {
+.filter-field select,
+.filter-field input:not([type="range"]) {
   background: var(--color-light);
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -82,12 +84,12 @@
 
 .filter-range-track,
 .filter-range-selection {
-  border-radius: 999px;
+  border-radius: 20px;
   height: 6px;
   left: 0;
   position: absolute;
   right: 0;
-  top: 18px;
+  top: 25px;
 }
 
 .filter-range-track {
@@ -100,10 +102,11 @@
 
 .filter-range input {
   background: transparent;
+  left: -9px;
   pointer-events: none;
   position: absolute;
-  top: 10px;
-  width: 100%;
+  top: 17px;
+  width: calc(100% + 18px);
   -webkit-appearance: none;
   appearance: none;
 }
