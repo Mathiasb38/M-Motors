@@ -10,6 +10,17 @@
   justify-content: center;
 }
 
+.catalog-empty {
+  background: var(--color-light);
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 auto;
+  max-width: 520px;
+  padding: 24px;
+  text-align: center;
+}
+
 .catalog-card {
   background: var(--color-light);
   border-radius: 10px;
