@@ -13,6 +13,13 @@ class VehicleOut(BaseModel):
     availability: datetime
 
 
+class AvailableVehicleFilters(BaseModel):
+    offer_type: str | None = None
+    brand_id: int | None = None
+    model_id: int | None = None
+    available_now: bool | None = None
+
+
 class VehicleModelOptionsOut(BaseModel):
     id: int
     name: str

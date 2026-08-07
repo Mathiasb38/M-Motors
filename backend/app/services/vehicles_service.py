@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.models import Brand, Vehicle, VehicleModel
 from app.schemas.vehicle import (
+    AvailableVehicleFilters,
     VehicleBrandOptionsOut,
     VehicleModelOptionsOut,
     VehicleOptionsOut,
@@ -10,8 +11,11 @@ from app.schemas.vehicle import (
 )
 
 
-def list_available_vehicles(db: Session) -> list[VehicleOut]:
-    rows = db.execute(
+def list_available_vehicles(
+    db: Session,
+    filters: AvailableVehicleFilters,
+) -> list[VehicleOut]:
+    query = (
         select(
             Vehicle.id,
             Brand.name.label("brand"),
@@ -23,8 +27,23 @@ def list_available_vehicles(db: Session) -> list[VehicleOut]:
         .join(VehicleModel, VehicleModel.id == Vehicle.model_id)
         .join(Brand, Brand.id == VehicleModel.brand_id)
         .where(Vehicle.availability.is_not(None))
-        .order_by(Brand.name, VehicleModel.name)
-    ).mappings().all()
+    )
+
+    if filters.offer_type is not None:
+        query = query.where(Vehicle.offer_type == filters.offer_type)
+
+    if filters.brand_id is not None:
+        query = query.where(Brand.id == filters.brand_id)
+
+    if filters.model_id is not None:
+        query = query.where(VehicleModel.id == filters.model_id)
+
+    if filters.available_now is True:
+        from datetime import datetime, timezone
+
+        query = query.where(Vehicle.availability <= datetime.now(timezone.utc))
+
+    rows = db.execute(query.order_by(Brand.name, VehicleModel.name)).mappings().all()
 
     return [
         VehicleOut(**row)
