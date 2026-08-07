@@ -8,19 +8,27 @@ import './Catalog.css'
 
 export default Catalog
 
-function Catalog() {
+
+function Catalog({ filters }) {
   const [vehicles, setVehicles] = useState([])
+  const filteredVehicles = vehicles.filter((vehicle) => {
+    const price = Number(vehicle.price)
+    const minPrice = filters.min_price ?? 0
+    const maxPrice = filters.max_price ?? Infinity
+
+    return price >= minPrice && price <= maxPrice
+  })
 
   useEffect(() => {
-    getAvailableVehicles()
+    getAvailableVehicles(filters)
       .then(setVehicles)
       .catch(() => setVehicles([]))
-  }, [])
+  }, [filters])
 
   return (
     <section className="catalog" aria-label="Catalogue de véhicules">
       <div className="catalog-list">
-        {vehicles.map((vehicle) => {
+        {filteredVehicles.map((vehicle) => {
           const isAvailable = new Date(vehicle.availability) <= new Date()
 
           return (
