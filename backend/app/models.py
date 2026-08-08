@@ -1,4 +1,14 @@
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Numeric, String, UniqueConstraint
+from sqlalchemy import (
+    Boolean,
+    Date,
+    DateTime,
+    ForeignKey,
+    Integer,
+    Numeric,
+    String,
+    UniqueConstraint,
+    func,
+)
 from sqlalchemy.orm import mapped_column
 
 from app.database import Base
@@ -43,9 +53,6 @@ class Engine(Base):
 
 class ModelEngine(Base):
     __tablename__ = "model_engines"
-    __table_args__ = (
-        UniqueConstraint("model_id", "engine_id", name="uq_model_engines_model_id_engine_id"),
-    )
 
     model_id = mapped_column(Integer, ForeignKey("models.id"), primary_key=True)
     engine_id = mapped_column(Integer, ForeignKey("engines.id"), primary_key=True)
@@ -64,3 +71,19 @@ class VehicleRentalOption(Base):
     vehicle_id = mapped_column(Integer, ForeignKey("vehicles.id"), primary_key=True)
     rental_option_id = mapped_column(Integer, ForeignKey("rental_options.id"), primary_key=True)
     is_included = mapped_column(Boolean, nullable=False, default=False)
+
+
+class ClientAccount(Base):
+    __tablename__ = "client_accounts"
+
+    id = mapped_column(Integer, primary_key=True, index=True)
+    email = mapped_column(String(255), unique=True, nullable=False)
+    password_hash = mapped_column(String(255), nullable=False)
+    first_name = mapped_column(String(100), nullable=False)
+    last_name = mapped_column(String(100), nullable=False)
+    birth_date = mapped_column(Date, nullable=False)
+    created_at = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+    )
