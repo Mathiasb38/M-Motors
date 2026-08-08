@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import check_database_connection, close_database_connection
 from app.routers.vehicles import router as vehicles_router
+from app.routers.client_accounts import router as client_accounts_router
 
 
 @asynccontextmanager
@@ -36,3 +37,4 @@ def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
 app.include_router(vehicles_router)
+app.include_router(client_accounts_router)
