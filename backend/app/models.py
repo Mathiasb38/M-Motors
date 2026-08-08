@@ -1,4 +1,4 @@
-from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, UniqueConstraint
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Numeric, String, UniqueConstraint
 from sqlalchemy.orm import mapped_column
 
 from app.database import Base
@@ -49,3 +49,18 @@ class ModelEngine(Base):
 
     model_id = mapped_column(Integer, ForeignKey("models.id"), primary_key=True)
     engine_id = mapped_column(Integer, ForeignKey("engines.id"), primary_key=True)
+
+
+class RentalOption(Base):
+    __tablename__ = "rental_options"
+
+    id = mapped_column(Integer, primary_key=True, index=True)
+    name = mapped_column(String(100), nullable=False)
+
+
+class VehicleRentalOption(Base):
+    __tablename__ = "vehicle_rental_options"
+
+    vehicle_id = mapped_column(Integer, ForeignKey("vehicles.id"), primary_key=True)
+    rental_option_id = mapped_column(Integer, ForeignKey("rental_options.id"), primary_key=True)
+    is_included = mapped_column(Boolean, nullable=False, default=False)
