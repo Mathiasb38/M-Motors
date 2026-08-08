@@ -55,6 +55,7 @@
   .header {
     padding: 10px 0;
     align-items: flex-start;
+    flex-direction: column;
   }
 
   .header-logo {
@@ -70,7 +71,9 @@
 
   .header-actions {
     padding-right: 20px;
-    flex-direction: column-reverse;
+    padding-bottom: 20px;
+    flex-direction: row;
+    align-self: flex-end;
   }
 
   .header-action {
