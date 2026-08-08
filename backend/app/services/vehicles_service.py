@@ -1,7 +1,15 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models import Brand, Engine, ModelEngine, Vehicle, VehicleModel
+from app.models import (
+    Brand,
+    Engine,
+    ModelEngine,
+    RentalOption,
+    Vehicle,
+    VehicleModel,
+    VehicleRentalOption,
+)
 from app.schemas.vehicle import (
     AvailableVehicleFilters,
     VehicleBrandOptionsOut,
@@ -9,6 +17,7 @@ from app.schemas.vehicle import (
     VehicleModelOptionsOut,
     VehicleOptionsOut,
     VehicleOut,
+    VehicleRentalOptionOut,
 )
 
 
@@ -108,3 +117,24 @@ def get_vehicle_options(db: Session) -> VehicleOptionsOut:
         brands=brands,
         engines=[],
     )
+
+
+def list_vehicle_rental_options(
+    db: Session,
+    vehicle_id: int,
+) -> list[VehicleRentalOptionOut]:
+    rows = db.execute(
+        select(
+            RentalOption.id,
+            RentalOption.name,
+            VehicleRentalOption.is_included,
+        )
+        .join(
+            VehicleRentalOption,
+            VehicleRentalOption.rental_option_id == RentalOption.id,
+        )
+        .where(VehicleRentalOption.vehicle_id == vehicle_id)
+        .order_by(RentalOption.name)
+    ).mappings().all()
+
+    return [VehicleRentalOptionOut(**row) for row in rows]
