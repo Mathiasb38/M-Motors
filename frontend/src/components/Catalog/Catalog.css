@@ -24,8 +24,10 @@
 .catalog-card {
   background: var(--color-light);
   border-radius: 10px;
-  box-shadow: 1px 1px 4px #595959;
+  box-shadow: 1px 1px 4px var(--color-overlay);
+  cursor: pointer;
   padding: 10px;
+  position: relative;
 }
 
 .catalog-card-title h2,
@@ -51,10 +53,8 @@
   border-radius: 10px;
   color: var(--color-icon);
   display: flex;
-  height: auto;
   aspect-ratio: 16/9;
   justify-content: center;
-  margin: 20px 16px;
 }
 
 .catalog-card-image svg {
@@ -63,12 +63,6 @@
 
 }
 
-.catalog-card-footer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: space-between;
-}
 
 .catalog-status {
   align-items: center;
@@ -77,8 +71,17 @@
   font-size: 14px;
   font-weight: 500;
   gap: 6px;
-  flex-basis: 100%;
+  margin-top: 10px;
+}
+
+.catalog-mileage {
+  color: var(--color-secondary-light);
+  font-size: 14px;
+  font-weight: 500;
   margin: 0;
+  top: 14px;
+  position: absolute;
+  right: 17px;
 }
 
 .catalog-status::before {
@@ -107,8 +110,11 @@
   font: inherit;
   font-size: 16px;
   font-weight: 600;
-  min-height: 44px;
-  padding: 0 20px;
+  min-height: 35px;
+  padding: 0 10px;
+  right: 10px;
+  position: absolute;
+  bottom: 10px;
 }
 
 .catalog-button-more {
@@ -136,7 +142,6 @@
 
   .catalog-card {
     min-height: 262px;
-    padding: 20px 10px;
   }
 
   .catalog-card-image {
