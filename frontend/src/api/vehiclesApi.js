@@ -33,3 +33,14 @@ export async function getVehicleOptions() {
 
   return response.json()
 }
+
+
+export async function getVehicleRentalOptions(vehicleId) {
+  const response = await fetch(`${API_URL}/vehicles/${vehicleId}/rental-options`)
+
+  if (!response.ok) {
+    return []
+  }
+
+  return response.json()
+}

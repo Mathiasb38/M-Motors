@@ -1,10 +1,20 @@
+import { useEffect, useState } from 'react'
 import { Car, X } from 'lucide-react'
+
+import { getVehicleRentalOptions } from '../../api/vehiclesApi.js'
 
 import './VehicleDetails.css'
 
 
 export default function VehicleDetails({ vehicle, onClose }) {
+  const [rentalOptions, setRentalOptions] = useState([])
   const isAvailable = new Date(vehicle.availability) <= new Date()
+
+  useEffect(() => {
+    getVehicleRentalOptions(vehicle.id)
+      .then(setRentalOptions)
+      .catch(() => setRentalOptions([]))
+  }, [vehicle.id])
 
   return (
     <div className="vehicle-details-overlay" onClick={onClose}>
@@ -32,6 +42,16 @@ export default function VehicleDetails({ vehicle, onClose }) {
               {vehicle.brand} {vehicle.model}
               <span>{vehicle.engine ?? 'Motorisation non renseignée'}</span>
             </h2>
+            {rentalOptions.length > 0 && (
+              <ul className="vehicle-details-rental-options">
+                {rentalOptions.map((option) => (
+                  <li key={option.id}>
+                    <span>{option.name}</span>
+                    <small>{option.is_included ? 'Inclus' : 'Non inclus'}</small>
+                  </li>
+                ))}
+              </ul>
+            )}
             <h3>{getMileageLabel(vehicle.mileage)}</h3>
             <strong>{getPriceLabel(vehicle)}</strong>
           </div>
