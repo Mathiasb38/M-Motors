@@ -7,7 +7,7 @@ import './Header.css'
 export default Header
 
 
-function Header() {
+function Header({ onProfile }) {
   return (
     <header className="header">
       <a className="header-logo" href="/">
@@ -21,7 +21,7 @@ function Header() {
         <button className="header-action" type="button" aria-label="Options">
           <Settings aria-hidden="true" />
         </button>
-        <button className="header-action header-profile" type="button" aria-label="Profil">
+        <button className="header-action header-profile" type="button" aria-label="Profil" onClick={onProfile}>
           <UserRound aria-hidden="true" />
         </button>
       </div>

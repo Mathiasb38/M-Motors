@@ -17,17 +17,17 @@ export default function VehicleDetails({ vehicle, onClose }) {
   }, [vehicle.id])
 
   return (
-    <div className="vehicle-details-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={onClose}>
       <article
         aria-label={`Détails de ${vehicle.brand} ${vehicle.model}`}
         aria-modal="true"
-        className="vehicle-details-modal"
+        className="modal vehicle-details-modal"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
       >
         <button
           aria-label="Fermer"
-          className="vehicle-details-close"
+          className="modal-close"
           onClick={onClose}
           type="button"
         >

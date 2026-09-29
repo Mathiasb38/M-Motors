@@ -28,6 +28,7 @@
   border: 1px solid var(--color-border);
   border-radius: 50%;
   color: var(--color-icon);
+  cursor: pointer;
   display: flex;
   height: 44px;
   justify-content: center;

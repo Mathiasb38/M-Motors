@@ -1,0 +1,83 @@
+.create-account-modal {
+  padding: 24px;
+  width: min(520px, 100%);
+}
+
+.create-account-modal h2 {
+  color: var(--color-text-primary);
+  font-size: 22px;
+  margin: 0 44px 24px 0;
+}
+
+.create-account-form,
+.create-account-form label {
+  display: grid;
+  gap: 8px;
+}
+
+.create-account-form {
+  gap: 16px;
+}
+
+.create-account-form label {
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.create-account-form input {
+  background: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text-primary);
+  font: inherit;
+  min-height: 42px;
+  padding: 0 10px;
+}
+
+.create-account-form input:focus {
+  border-color: var(--color-primary);
+  outline: 1px solid var(--color-primary);
+}
+
+.create-account-name-fields {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.create-account-feedback {
+  font-size: 14px;
+  margin: 0;
+}
+
+.create-account-feedback-error {
+  color: var(--color-notification);
+}
+
+.create-account-feedback-success {
+  color: var(--color-available);
+}
+
+.create-account-submit {
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 4px;
+  color: var(--color-light);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 0 16px;
+}
+
+.create-account-submit:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+@media (max-width: 520px) {
+  .create-account-name-fields {
+    grid-template-columns: 1fr;
+  }
+}
